@@ -1,0 +1,23 @@
+{
+  "name": "pdf2image",
+  "version": "1.0.0",
+  "main": "pdfium.js",
+  "author": "sokcuri",
+  "scripts": {
+    "start": "ts-node --transpile-only src/pdf2image.ts"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "bmp-js": "^0.1.0",
+    "data-uri-to-buffer": "^3.0.1",
+    "jsdom": "^19.0.0",
+    "pngjs": "^6.0.0",
+    "sharp": "^0.30.4",
+    "typescript": "^4.6.4"
+  },
+  "description": "",
+  "devDependencies": {
+    "@types/sharp": "^0.30.2"
+  }
+}
