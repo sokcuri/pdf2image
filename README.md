@@ -5,6 +5,6 @@
 > pnpm install (pnpm 패키지 매니저를 권장합니다)
 
 ## 사용법
-> pnpm start <input.pdf> <extension>
+> pnpm start [input.pdf] [extension]
 
 * extension에 사용 가능한 포맷 : jpg, jpeg, png, tiff, webp, avif
