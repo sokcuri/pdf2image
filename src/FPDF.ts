@@ -44,13 +44,13 @@ export enum PDFiumPageRotate {
 const FPDFDocument = Symbol('FPDFDocument');
 type FPDFDocument = typeof FPDFDocument;
 
-const FPDFPage = typeof Symbol('FPDFPage');
+const FPDFPage = Symbol('FPDFPage');
 type FPDFPage = typeof FPDFPage;
 
-const FPDFTextPage = typeof Symbol('FPDFTextPage');
+const FPDFTextPage = Symbol('FPDFTextPage');
 type FPDFTextPage = typeof FPDFTextPage;
 
-const FPDFBitmap = typeof Symbol('FPDFBitmap');
+const FPDFBitmap = Symbol('FPDFBitmap');
 type FPDFBitmap = typeof FPDFBitmap;
 
 export interface FPDFiumFunctions {
