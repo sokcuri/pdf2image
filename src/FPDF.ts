@@ -41,17 +41,22 @@ export enum PDFiumPageRotate {
   ROTATE_270 = 3
 }
 
-const FPDFDocument = typeof Symbol('FPDFDocument');
-type FPDFDocument = typeof FPDFDocument;
-
-const FPDFPage = typeof Symbol('FPDFPage');
-type FPDFPage = typeof FPDFPage;
-
-const FPDFTextPage = typeof Symbol('FPDFTextPage');
-type FPDFTextPage = typeof FPDFTextPage;
-
-const FPDFBitmap = typeof Symbol('FPDFBitmap');
-type FPDFBitmap = typeof FPDFBitmap;
+export class FPDFDocument {
+  private name = '$$FPDFDocument$$';
+  private constructor() {}
+}
+export class FPDFPage {
+  private name = '$$FPDFPage$$';
+  private constructor() {}
+}
+export class FPDFTextPage {
+  private name = '$$FPDFTextPage$$';
+  private constructor() {}
+}
+export class FPDFBitmap {
+  private name = '$$FPDFBitmap$$';
+  private constructor() {}
+}
 
 export interface FPDFiumFunctions {
   Init(): void;
@@ -102,8 +107,8 @@ export const GetPDFiumFunc = (pdfium: any) => {
   } as FPDFiumFunctions;
 }
 
-export const GetPDFiumHeap = (pdfium: any, J, s) => {
-  let E;
+export const GetPDFiumHeap = (pdfium: any, J: any, s: any) => {
+  let E: any;
   switch (J) {
     case Int8Array: E = pdfium.HEAP8; break;
     case Int16Array: E = pdfium.HEAP16; break;

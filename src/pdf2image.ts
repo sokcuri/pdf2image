@@ -10,9 +10,10 @@ import {
   PDFiumRenderFlags,
   PDFiumLastErrors,
   PDFiumPageRotate,
+  FPDFDocument,
 } from "./FPDF";
 
-export const pdfiumFunc = { ...GetPDFiumFunc(pdfium) } as FPDFiumFunctions;
+export const pdfiumFunc: FPDFiumFunctions = GetPDFiumFunc(pdfium);
 
 const I8 = Int8Array;
 const I16 = Int16Array;
@@ -24,7 +25,7 @@ const U32 = Uint32Array;
 const F32 = Float32Array;
 const F64 = Float64Array;
 
-const H = (t, s, d) => (f) => {
+const H = (t: any, s: any, d: any) => (f: any) => {
   const [m, ...a] = GetPDFiumHeap(pdfium, t, s);
   const v = f(...a.map((x) => x.p));
 
@@ -38,6 +39,11 @@ const H = (t, s, d) => (f) => {
   return r;
 };
 
+export interface WasmData {
+  wasm: FPDFDocument,
+  wasmBuffer: unknown
+}
+
 // classes
 export class Page {
   public loaded = false;
@@ -49,15 +55,15 @@ export class Page {
 }
 
 class Processor {
-  constructor(public wasmData: any) {}
+  constructor(public wasmData: WasmData) {}
 
   getPageSize(i = 0, s = 2) {
     return H(
       F64,
       2,
       [-1, -1]
-    )((w, h) => pdfiumFunc.GetPageSizeByIndex(this.wasmData.wasm, i, w, h)).map(
-      (v) => parseInt(v) * s
+    )((w: number, h: number) => pdfiumFunc.GetPageSizeByIndex(this.wasmData.wasm, i, w, h)).map(
+      (v: string) => parseInt(v) * s
     );
   }
 
@@ -144,8 +150,8 @@ class Processor {
 
 class Doc {
   public processor: Processor;
-  private pages: Page[];
-  constructor(wasmData: any) {
+  private pages: Page[] = [];
+  constructor(wasmData: WasmData) {
     this.processor = new Processor(wasmData);
   }
 
@@ -179,13 +185,13 @@ class Doc {
       width: number;
       height: number;
     }[] = [];
-    
+
     for (let index = 0; index < this.pages.length; index++) {
       const page = this.pages[index];
       console.log(`Rendering pdfs... ${index + 1} / ${this.pages.length}`);
       result.push(await page.render());
     }
-    
+
     pdfium._free(wasmBuffer);
     pdfiumFunc.CloseDocument(wasm);
     pdfiumFunc.DestroyLibrary();
@@ -236,7 +242,10 @@ async function processPDF(fileByteArray: Buffer, filename: string, toExt: string
     doc.createAllPages();
     const rendered = await doc.renderPages();
     let pageNumber = 1;
+
     for (const item of rendered) {
+      console.log(`Save ${filename}_${pageNumber}.${toExt}... ${pageNumber} / ${rendered.length}`);
+
       await sharp(item.data, {
         raw: {
           width: item.width,
@@ -245,7 +254,6 @@ async function processPDF(fileByteArray: Buffer, filename: string, toExt: string
         },
       })
         .toFile(`output/${filename}_${pageNumber}.${toExt}`);
-        console.log(`Save ${filename}_${pageNumber}.${toExt}... ${pageNumber} / ${rendered.length}`);
         pageNumber++;
     }
   } else {
