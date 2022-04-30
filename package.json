@@ -1,5 +1,5 @@
 {
-  "name": "pdf2image",
+  "name": "@sokcuri/pdf2image",
   "version": "1.0.0",
   "main": "pdfium.js",
   "author": "sokcuri",
