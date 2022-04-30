@@ -188,19 +188,13 @@ class Doc {
     
     for (let index = 0; index < this.pages.length; index++) {
       const page = this.pages[index];
-      if (!page.loaded) {
-        console.log(`Rendering pdfs... ${index + 1} / ${this.pages.length}`);
-        result.push(await page.render());
-
-        if (index === this.pages.length - 1) {
-          pdfium._free(wasmBuffer);
-
-          pdfiumFunc.CloseDocument(wasm);
-          pdfiumFunc.DestroyLibrary();
-        }
-      }
+      console.log(`Rendering pdfs... ${index + 1} / ${this.pages.length}`);
+      result.push(await page.render());
     }
-
+    
+    pdfium._free(wasmBuffer);
+    pdfiumFunc.CloseDocument(wasm);
+    pdfiumFunc.DestroyLibrary();
     return result;
   }
 }
