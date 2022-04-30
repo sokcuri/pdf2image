@@ -71,12 +71,6 @@ class Processor {
 
     const bmap = pdfiumFunc.Bitmap_CreateEx(width, height, PDFiumBitmapFormats.Bitmap_BGRA, heap, width * 4);
     const page = pdfiumFunc.LoadPage(this.wasmData.wasm, index);
-    const textPage = pdfiumFunc.Text_LoadPage(page);
-
-    const heap2 = pdfium._malloc(100);
-    for (let i = 0; i < 100; i++) {
-      pdfium.HEAPU8[heap2 + i] = 0;
-    }
 
     pdfiumFunc.Bitmap_FillRect(bmap, 0, 0, width, height, 0xffffffff);
     pdfiumFunc.RenderPageBitmap(bmap, page, 0, 0, width, height, 0, flag);
