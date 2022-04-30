@@ -13,25 +13,25 @@ export enum PDFiumRenderFlags {
   RENDER_NO_SMOOTHTEXT = 4096, // Set to disable anti-aliasing on text.
   RENDER_NO_SMOOTHIMAGE = 8192, // Set to disable anti-aliasing on images.
   RENDER_NO_SMOOTHPATH = 16384, // Set to disable anti-aliasing on paths.
-  THUMBNAIL = 32768 //	Render page as a thumbnail
+  THUMBNAIL = 32768 // Render page as a thumbnail
 }
 
 export enum PDFiumBitmapFormats {
-  Bitmap_Gray= 1,
-    Bitmap_BGR= 2,
-    Bitmap_BGRx= 3,
-    Bitmap_BGRA= 4,
+  Bitmap_Gray = 1,
+  Bitmap_BGR = 2,
+  Bitmap_BGRx = 3,
+  Bitmap_BGRA = 4,
 }
 
 export enum PDFiumLastErrors {
-        // Last error types
-        SUCCESS= 0,
-        UNKNOWN= 1,
-        FILE= 2,
-        FORMAT= 3,
-        PASSWORD= 4,
-        SECURITY= 5,
-        PAGE= 6,
+  // Last error types
+  SUCCESS = 0,
+  UNKNOWN = 1,
+  FILE = 2,
+  FORMAT = 3,
+  PASSWORD = 4,
+  SECURITY = 5,
+  PAGE = 6,
 }
 
 export enum PDFiumPageRotate {
